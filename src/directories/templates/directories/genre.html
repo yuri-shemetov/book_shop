@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title%} :: Genre :: {%endblock title%}
+{% block body%}
+
+    <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
+        <div class="card-header"> 
+            <h4 class="card-title">Описание жанра: {{ genre.name }}</h4></div>
+            <div class="card-body">
+                <h5 class="card-title">Жанр:</h5>
+                <p class="card-text">{{ genre.name }}</p>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Описание:</h5>
+                <p class="card-text">{{ genre.description }}</p>
+            </div>
+    </div>
+    
+        <a href="{% url 'genres' %}" class="btn btn-outline-secondary"> Назад </a>
+
+{%endblock body%}

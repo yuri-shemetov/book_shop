@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title%} :: Book update :: {%endblock title%}
+{% block body%}
+    <h1>Редактировать книгу</h1>
+    <ul>
+        <form method="post" enctype="multipart/form-data" action="">
+            {% csrf_token %}
+            {{form|crispy}}
+            <br>
+            <a href="{% url 'books-managers' %}" class='btn btn-outline-dark'> Отмена </a>
+            <input type="submit" class='btn btn-outline-success' value="Применить">
+        </form>
+    </ul>
+{%endblock body%}

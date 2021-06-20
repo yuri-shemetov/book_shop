@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title%} :: Promo :: {%endblock title%}
+{% block body%}
+
+
+   <br>
+    <div class="table table-bordered">
+      <table class="table table-bordered">
+          <thead>
+        <tr>
+            <th colspan="4"><center><h2><b> Aкции </b></h2></center></th>
+            {% if user.groups.all.0.name == "Managers" or user.is_superuser%}
+                <td><center><h2><b> Update </b></h2></center></td>
+                <td><center><h2><b> Delete </b></h2></center></td>
+            {%endif%}
+        </tr>
+         </thead>
+         <tbody>
+            {% for promo in object_list %}
+            <tr>
+                <th colspan="4">
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <a href="{% url 'promo-detail' promo.pk %}" class = 'btn btn-outline-secondary'> {{promo}} </a>
+                        {% if user.groups.all.0.name == "Managers" or user.is_superuser%}
+                            <td><center><a href="{% url 'promo-update' promo.pk %}" class="btn btn-warning">Редактировать</a></center></td>
+                            <td><center><a href="{% url 'promo-delete' promo.pk %}" class="btn btn-danger"> Удалить </a></center></td>
+                        {%endif%}
+                    </div>
+                </th>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+        </table>
+    </div>
+
+{% if user.groups.all.0.name == "Managers" or user.is_superuser%}
+    <a href="{% url 'administration' %}" class = 'btn btn-outline-dark'> Назад </a>
+    <a href="{% url 'promo-create' %}" class="btn btn-success"> Добавить акцию </a>
+{%endif%}
+
+{%endblock body%}

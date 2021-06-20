@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title%} Login {%endblock title%}
+{% block body%}
+
+
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
+{% endif %}
+<br>
+<center>
+<div class="card" style="width: 18rem;">
+		<main class="form-signin">
+		<form method="post" action="{% url 'login' %}">
+			<h1 class="h4 mb-3 fw-normal">
+				<br> Пожалуйста, <br> введите свой логин и пароль
+			</h1>
+			{% csrf_token %}
+			<table>
+				<tr>
+					<td>
+						<label type="text" class="form-control" >Логин<span class="text-red">*</span>:
+                            <div class="col-md-6">
+                                {{ form.username }}
+                            </div>
+						</label>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td>
+						<label type="text" class="form-control" >Пароль<span class="text-red">*</span>:
+                            <div class="col-md-6">
+                                {{ form.password }}
+							</div>
+						</label>
+					</td>
+				</tr>
+
+
+
+					<!--<div class="form-floating">
+						<td type="text" class="form-control" id="floatingUsername" placeholder="Username">{{ form.username.label_tag }} {{ form.username }}</td>
+					</div>
+				</tr>
+				<tr>!
+					<td class="form-control">{{ form.password.label_tag }} {{ form.password }}</td>
+				</tr>-->
+			</table>
+
+			<div class="checkbox mb-3">
+			  <label>
+				<input type="checkbox" value="remember-me"> Remember me
+			  </label>
+			</div>
+
+			<input  type="submit" class=" btn btn-warning" value="Войти">
+			<input type="hidden" name="next" value="{{ next }}">
+		<p><a href=#>Забыли пароль?</a></p>
+		</form>
+		</main>
+</div>
+</center>
+
+
+{# Assumes you setup the password_reset view in your URLconf #}
+
+
+
+{%endblock body%}

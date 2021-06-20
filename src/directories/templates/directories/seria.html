@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title%} :: Seria :: {%endblock title%}
+{% block body%}
+
+    <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
+        <div class="card-header"> 
+            <h4 class="card-title">Описание раздела "Серия книги"</h4></div>
+            <div class="card-body">
+                <h5 class="card-title">ID:</h5>
+                <p class="card-text">{{ series.id }}</p>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Описание серии книги:</h5>
+                <p class="card-text">{{ series.series }}</p>
+            </div>
+    </div>
+    
+        <a href="{% url 'series' %}" class = 'btn btn-outline-secondary'> Назад </a>
+{%endblock body%}

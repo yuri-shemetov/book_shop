@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title%} :: About Book :: {%endblock title%}
+{% block body%}
+
+<div class="card mb-3" style="max-width: 800px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="{{ book.picture.url }}" class='card-img-top' alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+        <font color="black" face="Arial">
+          <h5 class="card-title">{{ book.name }} /  
+            {% for author in book.author.all%}
+              {{author}}
+            {%endfor%}</h5>
+          <p class="card-text">
+            <b>Цена: </b>{{ book.price }} BYN<br>
+            {{ book.seria }}<br>
+            {{ book.genre }}<br>
+            <b>Год:</b> {{ book.year }}<br>
+            <b>Страниц:</b> {{ book.pages }}<br>
+            <b>Переплет: </b>{{ book.binding }}<br>
+            <b>Формат: </b>{{ book.form }}<br>
+            <b>ISBN: </b>{{ book.isbn }}<br>
+            <b>Вес: </b>{{ book.weight }}<br>
+            <b>Возрастное ограничение </b>{{ book.age }}+<br>
+            {{ book.publisher }}<br>
+            <b>Количество книг: </b>{{ book.quantity }}<br>
+              {% if book.avtive == True %}
+                <b><em>Заказ АКТИВЕН</b></em><br>
+              {%else %}
+                <b>Заказ НЕАКТИВЕН </b><br>
+              {%endif%}
+            <b>Рейтинг: </b>{{ book.rating }}<br>
+          </p>
+          <p class="card-text"><small class="text-muted">
+            <b>Дата внесения:</b> {{ book.created }}<br>
+            <b>Дата последнего редактирования: </b>{{ book.updated }}
+          </small></p>
+        </font>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+  <a href="{% url 'books' %}" class="btn btn-sm btn-outline-secondary"> К списку книг </a>      
+  <a href="#" class="btn btn-sm btn-warning"'>Добавить в корзину </a>
+        
+{%endblock body%}

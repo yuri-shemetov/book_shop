@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title%} :: Series :: {%endblock title%}
+{% block body%}
+
+    <h1>Справочник Серий книг</h1>
+    <ul>
+    
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+              <th scope="col">№</th>
+              <th scope="col">Detail</th>
+              <th scope="col">Update</th>
+              <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for seria in object_list %}
+            <tr>
+              <th scope="row">{{forloop.counter}}.</th>
+              <td><a href="{% url 'seria' seria.pk %}">
+                <h5 class="card-title">{{ seria }}</h5></a></td>
+              <td>
+                  <a href="{% url 'series-update' seria.pk %}" class = 'btn btn-sm btn-secondary' >
+                      Редактировать 
+                   </a>
+                    </button>
+               </td>
+              <td>
+                    <a href="{% url 'series-delete' seria.pk %}" class="btn btn-sm btn-danger">
+                        Удалить 
+                    </a>
+              </td>
+            </tr>
+            {% endfor %}
+    </table>
+    
+    <br>
+    <br>
+        <a href="{% url 'directories' %}" class="btn btn-sm btn-outline-secondary"> Назад к справочникам </a>
+        <a href="{% url 'series-create' %}" class="btn btn-sm btn-success"> Добавить новую серию </a>
+    </ul>
+{%endblock body%}
