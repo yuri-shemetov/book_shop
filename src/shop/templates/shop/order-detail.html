@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load comment_tags %}
+{% block title%} :: Подробнее о заказе :: {%endblock title%}
+{% block body%}
+<h1><center> Корзина №{{name_pk}}</center></h1>
+<h4> Список книг</h4>
+
+  <form action="#" method="post">
+  <table class="table table-bordered border-grey">
+      <thead>
+        <tr>
+          <th scope="col">№ п/п</th>
+          <th scope="col">Книга</th>
+          <th scope="col">Количество</th>
+          <th scope="col">Цена за шт.</th>
+          <th scope="col">Общая цена</th>
+        </tr>
+      </thead>
+      {%for book in object.books.all%}
+      <tbody>
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>{{book.book}}</td>
+          <td>{{book.quantity}}</td>
+          <td>{{book.unit_price}}</td>
+          <td>{{book.total_price}}</td>
+        </tr>
+      </tbody>
+      {%endfor%}
+      <tr>
+        <td colspan="4"><b>Итого:</b></td>
+        <td colspan="2"><b>{{object.total_price}} BYN</b></td>
+      </tr>
+  </table>
+</form>
+<h1><center> Заказчик: {{login}}</center></h1><br>
+    <table class="table table-bordered border-grey">
+          <thead>
+            <tr>
+              <th scope="col"><center>Имя и Фамилия</center></th>
+              <th scope="col"><center>Телефон</center></th>
+              <th scope="col"><center>Дата создания заказа</center></th>
+              <th scope="col"><center>Дата изменнения заказа</center></th>
+                <th scope="col"><center>Подробнее</center></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td><center>{{full_name}}</center></td>
+              <td><center>{{phone_number}}</center></td>
+              <td><center>{{created}}</center></td>
+              <td><center>{{updated}}</center></td>
+              <td><center><a href="{% url 'users-detail-admin' login_number %}?filter={{login_number}}" class = 'btn btn-sm btn-outline-dark'> Карточка заказчика </a></center></td>
+                 <!--- url 'users-detail-admin' user_info.pk %}?filter={{user_info.pk}} !--->
+            </tr>
+          </tbody>
+      </table>
+
+<h1><center> Статус заказа </center></h1><br>
+    <table class="table table-bordered border-grey">
+        <thead>
+            <tr>
+              <th scope="col"><center>Статус заказа</center></th>
+              <th scope="col"><center>Дата изменения статуса</center></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+                {%if status.name == "В очереди"%}
+                    <td><center><a href="{% url 'status' name_pk%}" class="btn btn-sm btn-danger">{{status}}</a></center></td>
+                {%elif status.name == "В пути"%}
+                    <td><center><a href="{% url 'status' name_pk%}" class="btn btn-sm btn-warning">{{status}}</a></center></td>
+                {%elif status.name == "Выполнен"%}
+                    <td><center><a href="{% url 'status' name_pk%}" class="btn btn-sm btn-success">{{status}}</a></center></td>
+                {%else%}
+                    <td><center><a href="{% url 'status' name_pk%}" class="btn btn-sm btn-secondary">{{status}}</a></center></td>
+                {%endif%}
+              <td><center>{{updated}}</center></td>
+            </tr>
+          </tbody>
+      </table>
+{% show_comments %}
+     <a href="{% url 'orders' %}" class = 'btn btn-sm btn-outline-dark'> Назад </a>
+
+
+
+
+{% endblock body%}

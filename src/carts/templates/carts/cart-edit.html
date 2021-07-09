@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title%} :: Cart :: {%endblock title%}
+{% block body%}
+
+<svg style="display: none;">
+    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+  </symbol>
+  </svg>
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"></svg>
+        <div>
+          {{ message }}
+        </div>
+      </div>
+    {% endfor %}
+{% endif %}
+
+<h1><center> Корзина </center></h1>
+<h4> Список выбранных вами книг:</h4>
+
+<form action="{% url 'carts:update-cart'%}" method="post">
+  <table class="table table-bordered border-grey">
+      <thead>
+        <tr>
+          <th scope="col">№ п/п</th>
+          <th scope="col">Книга</th>
+          <th scope="col">Количество</th>
+          <th scope="col">Цена за шт.</th>
+          <th scope="col">Общая цена</th>
+          <th scope="col"><center>Удалить позицию</center></th>
+        </tr>
+      </thead>
+      {%for book in object.books.all%}
+      <tbody>
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>{{book.book}}</td>
+          <td>
+            <div class=" mb">
+              <input type="number" name="quantityforgood_{{book.pk}}" min="1" max="99" step="1" class="form-control" value="{{book.quantity}}">
+            </div>
+          </td>
+          <td>{{book.unit_price}}</td>
+          <td>{{book.total_price}}</td>
+          <td><center><a href="{% url 'carts:delete-book-in-cart' book.pk %}?filter={{book.pk}}" class="btn btn-sm btn-danger">
+              Delete
+              </a></center>
+          </td>
+        </tr>
+      </tbody>
+      {%endfor%}
+      <tr>
+        <td colspan="4"><b>Итого:</b></td>
+        <td colspan="2"><b>{{object.total_price}} BYN</b></td>
+      </tr>
+  </table>
+    {%csrf_token%}
+    <button type="submit" class="btn btn-sm btn-outline-secondary" name='submit' value='save_cart'>Сохранить</button>
+    <button type="submit" class="btn btn-sm btn-warning" name='submit' value='create_order'>Сохранить и Оформить заказ</button>
+
+</form>         
+
+{% endblock body%}

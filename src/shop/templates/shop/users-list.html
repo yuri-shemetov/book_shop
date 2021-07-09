@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title%} :: Orders :: {%endblock title%}
+{% block body%}
+
+
+   <br>
+    <div class="table table-bordered">
+      <table class="table table-bordered">
+          <thead>
+        <tr>
+                <td><center><h5><b> № п/п </b></h5></center></td>
+            <th colspan="4"><center><h5><b> Карточки пользователей </b></h5></center></th>
+        </tr>
+         </thead>
+
+            {% for user_info in object_list %}
+          <tbody>
+            <tr>
+                <td><center>{{forloop.counter}}</center></td>
+                <th colspan="4">
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                    <a href="{% url 'users-detail-admin' user_info.pk %}?filter={{user_info.pk}}" class = 'btn btn-outline-secondary'> {{user_info}}  </a>
+                    </div>
+                </th>
+            </tr>
+            </tbody>
+            {% endfor %}
+
+        </table>
+    </div>
+
+
+    <a href="{% url 'administration' %}" class = 'btn btn-outline-dark'> Назад </a>
+
+    {% include "./paginator.html" %}   
+
+{%endblock body%}

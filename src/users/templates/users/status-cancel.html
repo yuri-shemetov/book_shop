@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title%} :: Cancel Order :: {%endblock title%}
+{% block body%}
+<br>
+<br>
+<h1><center> Ваш заказ отменен! </center></h1>
+<br>
+<center><a href="{% url 'users:user' %}" type="button" class="btn btn-sm btn-outline-dark">В кабинет пользователя</a></center>
+
+{% endblock body%}

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title%} Register {%endblock title%}
+{% block body%}
+
+<br>
+<h2 >Кабинет пользователя</h2>
+<br>
+
+<h3><center> Ваш профиль </center></h3><br>
+    <table class="table table-bordered border-grey">
+          <thead>
+            <tr>
+              <th scope="col"><center>Логин</center></th>
+              <th scope="col"><center>E-mail</center></th>
+              <th scope="col"><center>Подробная информация</center></th>
+              <th scope="col"><center>Пароль</center></th>
+              <th scope="col"><center>Другие пользователи</center></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td><center>{{user.username}}</center></td>
+              <td><center>{{user.email}}</center></td>
+              <td><center>
+                  <a href="{% url 'users:user-detail' %}" class = 'btn btn-sm btn-outline-dark'> Ваша карточка </a>
+              </center></td>
+              <td><center>
+                   <a href="{% url 'users:change-password' %}" class = 'btn btn-sm btn-outline-dark'> Изменить пароль </a>
+              </center></td>
+                <td><center>
+                   <a href="{% url 'users:users-all' %}" class = 'btn btn-sm btn-outline-dark'> Подробнее </a>
+              </center></td>
+            </tr>
+          </tbody>
+      </table>
+<br>
+{% if user.groups.all.0.name == "Customers"%}
+<h3><center> Ваши корзины покупок </center></h3><br>
+    <table class="table table-bordered border-grey">
+          <thead>
+            <tr>
+              <th scope="col"><center>Номер корзины</center></th>
+              <th scope="col"><center>Дата создания заказа</center></th>
+              <th scope="col"><center>Дата изменения заказа</center></th>
+                <th scope="col"><center>Статус</center></th>
+            </tr>
+          </thead>
+    {% for cart in object_list%}
+          <tbody>
+            <tr>
+              <td><center>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                <a href="{% url 'users:user-order' %}?filter= {{cart.pk}}" class = 'btn btn-sm btn-outline-dark'> Корзина № {{forloop.counter}} </a></center></center></td>
+                </div>
+              <td><center>{{cart.created}}</center></td>
+              <td><center>{{cart.updated}}</center></td>
+              <td><center>
+                {%if cart.status.name == "В очереди"%}         
+                  <h5><span class="badge rounded-pill bg-danger col-6 ">{{cart.status}}</span></h5>
+                {%elif cart.status.name == "В пути"%}         
+                  <h5><span class="badge rounded-pill bg-warning col-6 ">{{cart.status}}</span></h5>
+                {%elif cart.status.name == "Выполнен"%}         
+                  <h5><span class="badge rounded-pill bg-success col-6 ">{{cart.status}}</span></h5>
+                {%else%}         
+                  <h5><span class="badge rounded-pill bg-secondary col-6 ">{{cart.status}}</span></h5>
+                {%endif%}
+              </center></td>
+            </tr>
+          </tbody>
+    {% endfor %}
+      </table>
+{% endif %}
+
+{% endblock body%}

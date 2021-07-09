@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title%} Изменить подробности {%endblock title%}
+{% block body%}
+<center>
+
+
+<div class="card border-secondary mb-3" style="width: 30rem;">
+  <div class="card-header"><h5 class="card-title"><b><center>Изменить подробности {{user}}</center></b></h5></div>
+  <div class="card-body text-secondary">
+    <p class="card-text">
+       <form method="post" action="" class="form">
+            {% csrf_token %}
+
+      <table class="table" >
+  <tbody>
+    <span style="position: relative; z-index: -1;">{{form.username}}</span>
+    <tr>
+      <th scope="row">Имя</th>
+      <td>{{form.first_name}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Фамилия</th>
+      <td>{{form.last_name}}</td>
+    </tr>
+    <tr>
+      <th scope="row">e-mail</th>
+      <td>{{form.email}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Телефон</th>
+      <td>{{form.phone_number}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Страна</th>
+      <td>{{form.country}}</td>
+    </tr>
+      <tr>
+      <th scope="row">Город</th>
+      <td>{{form.city}}</td>
+    </tr>
+      <tr>
+      <th scope="row">Индекс</th>
+      <td>{{form.index}}</td>
+    </tr>
+      <tr>
+      <th scope="row">Адрес №1</th>
+      <td>{{form.address_1}}</td>
+    </tr>
+      <tr>
+      <th scope="row">Адрес №2</th>
+      <td>{{form.address_2}}</td>
+    </tr>
+      <tr>
+      <th scope="row">Дополнительная информация</th>
+      <td>{{form.info}}</td>
+    </tr>
+  </tbody>
+</table>
+
+            <br>
+            <a href="{% url 'users:user-detail'%}" class='btn btn-outline-dark'> Отмена </a>
+            <input type="submit" class='btn btn-outline-dark' value="Применить">
+        </form>
+  </div>
+</div>
+</center>
+
+
+
+{% endblock body%}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title%} :: Author update :: {%endblock title%}
+{% block body%}
+    <h1>Редактировать Автора(-ов)</h1>
+    <ul>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form|crispy}}
+            <br>
+                <a href="{% url 'authors' %}" class="btn btn-outline-secondary"> Вернуться к списку авторов </a>
+                <input type="submit" class="btn btn-warning" value="Обновить">
+        </form>
+
+    </ul>
+{%endblock body%}

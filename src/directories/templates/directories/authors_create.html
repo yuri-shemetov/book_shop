@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title%} :: Author create :: {%endblock title%}
+{% block body%}
+    <h1>Добавть в справочник нового(-ых) Автора(-ов)</h1>
+    <ul>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form|crispy}}
+            <br>
+            <a href="{% url 'authors' %}" class="btn btn-outline-secondary"> Назад к списку авторов </a>
+            <input type="submit" class='btn btn-outline-success' value="Добавить">
+        </form>
+    </ul>
+{%endblock body%}

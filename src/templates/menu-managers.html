@@ -1,0 +1,30 @@
+{% load new_order %}
+<ul class="navbar-nav me-auto mb-2 mb-md-0">
+  <li class="nav-item">
+    <a class="nav-link" aria-current="page" href="{% url 'books' %}">Книги</a>
+  </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'genres' %}">Жанры</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'administration' %}">Административный портал <span class="badge rounded-pill bg-danger">{% new_order %}</span></a>
+      </li>
+</ul>
+
+<ul class="navbar-nav me-auto mb-2 mb-md-0" >
+      {% if user.is_authenticated %}
+      <li class="nav-item" >
+        <a class="nav-link" href="{% url 'users:user' %}" tabindex="-1" aria-disabled="true" >Приветствуем Вас, {{user}}!</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'users:logout' %}">Выйти из аккаунта</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="#">Зарегистрироваться</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'users:login' %}">Войти в аккаунт</a>
+      </li>
+      {%endif%}
+</ul>

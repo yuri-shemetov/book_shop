@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title%} :: Orders :: {%endblock title%}
+{% block body%}
+
+
+   <br>
+    <div class="table table-bordered">
+      <table class="table table-bordered">
+          <thead>
+        <tr>
+                <td><center><h5><b> № п/п </b></h5></center></td>
+            <th colspan="4"><center><h5><b> Номер Заказа (Корзины) </b></h5></center></th>
+                <td><center><h5><b> Имя, Фамилия </b></h5></center></td>
+                <td><center><h5><b> Статус </b></h5></center></td>
+        </tr>
+         </thead>
+
+            {% for order in object_list %}
+          <tbody>
+            <tr>
+                <td><center>{{forloop.counter}}</center></td>
+                <th colspan="4">
+                    <center>
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                        <a href="{% url 'order-detail' order.pk %}?filter={{order.pk}}" class = 'btn btn-outline-secondary'> Заказ № {{order.pk}}.  </a>
+                        </div>
+                    </center>
+                <td><center>{{order.first_name}} {{order.last_name}}</center></td>
+                <td><center><div class="d-grid gap-2 col-6 mx-auto">
+                {%if order.status.name == "В очереди"%}
+                    <a href="{% url 'status' order.pk%}" class="btn btn-danger">{{order.status}} ! </a>
+                {%elif order.status.name == "В пути"%}
+                    <a href="{% url 'status' order.pk%}" class="btn btn-warning">{{order.status}} ! </a>
+                {%elif order.status.name == "Выполнен"%}
+                    <a href="{% url 'status' order.pk%}" class="btn btn-success">{{order.status}} ! </a>
+                {%else%}
+                    <a href="{% url 'status' order.pk%}" class="btn btn-secondary">{{order.status}} ! </a>
+                {%endif%}
+                </div></center></td>
+
+                </th>
+            </tr>
+            </tbody>
+            {% endfor %}
+
+        </table>
+    </div>
+
+
+    <a href="{% url 'administration' %}" class = 'btn btn-outline-dark'> Назад </a>
+
+    {% include "./paginator.html" %}   
+
+{%endblock body%}

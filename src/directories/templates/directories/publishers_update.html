@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title%} :: Publisher update :: {%endblock title%}
+{% block body%}
+    <h1>Редактировать выбранное Издательство</h1>
+    <ul>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form|crispy}}
+            <br>
+                <a href="{% url 'publishers' %}" class="btn btn-outline-secondary"> Назад к списку Издательства </a>
+                <input type="submit" class="btn btn-warning" value="Обновить">
+        </form>
+
+    </ul>
+{%endblock body%}

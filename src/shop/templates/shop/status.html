@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title%} :: Orders :: {%endblock title%}
+{% block body%}
+
+    <h1>Изменить статус</h1>
+    <ul>
+        <form method="post" enctype="multipart/form-data" action="">
+            {% csrf_token %}
+            {{form.as_p}}
+            <br>
+            <a href="{% url 'orders' %}" class='btn btn-outline-dark'> Отмена </a>
+            <input type="submit" class='btn btn-outline-success' value="Применить">
+        </form>
+    </ul>
+
+
+
+{%endblock body%}

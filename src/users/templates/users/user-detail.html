@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title%} Подробнее...  {%endblock title%}
+
+
+{% block body%}
+
+<svg style="display: none;">
+    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+    </symbol>
+  </svg>
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+        <div>
+          {{ message }}
+        </div>
+      </div>
+    {% endfor %}
+{% endif %}
+
+<center><br>
+    <div class="card" style="width: 100%">
+		<main class="form-signin">
+        {% for us in object_list%}
+            {%if us.username == user %}
+        <h2 >Подробнее о {{user.username}}</h2><br>
+            <div class="table table-striped" style="width: 100%">
+                <table class="table table-striped border-warning">
+                    <tbody>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Логин: </center></h5></td>
+                                <td><h5><center><b>{{us.username}}</b></center></h5></td>
+                            </div>
+                            </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>E-Mail: </center></h5></td>
+                                <td><h5><center><b>{{user.email}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Имя: </center></h5></td>
+                                <td><h5><center><b>{{user.first_name}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Фамилия: </center></h5></td>
+                                <td><h5><center><b>{{user.last_name}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Телефон:  </center></h5></td>
+                                <td><h5><center><b>{{us.phone_number}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                         <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Группа: </center></h5></td>
+                                <td><h5><center><b>{{user.groups.all.0.name}}</b></center></h5></td>
+                            </div>
+                            </tr>
+                        <tr>
+                            <th colspan="4">
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <h4> <center>Домашний адрес: </center></h4>
+                            </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Страна: </center></h5></td>
+                                <td><h5><center><b>{{us.country}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Город: </center></h5></td>
+                                <td><h5><center><b>{{us.city}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Индекс: </center></h5></td>
+                                <td><h5><center><b>{{us.index}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Адрес 1: </center></h5></td>
+                                <td><h5><center><b>{{us.address_1}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Адрес 2: </center></h5></td>
+                                <td><h5><center><b>{{us.address_2}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Дополнительная информация: </center></h5></td>
+                                <td><h5><center><b>{{us.info}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+                    <a href="{% url 'users:user' %}" class = 'btn btn-outline-dark'> Назад </a>
+                    <a href="{% url 'users:user-update' us.pk %}" class = 'btn btn-outline-dark'> Изменить </a>
+
+            {%endif%}
+        {%endfor%}
+        </main>
+    </div>
+
+    {%if not user.profile %}
+<br>
+    <a href="{% url 'users:user-create' %}" class = 'btn btn-outline-dark' name="add_user" value="add_user"> Добавить </a>
+<br>
+    {%endif%}
+</center>
+
+
+{% endblock body%}

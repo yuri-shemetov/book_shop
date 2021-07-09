@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title%} :: Publisher :: {%endblock title%}
+{% block body%}
+
+    <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
+        <div class="card-header"> 
+            <h4 class="card-title">Описание раздела "Издательство"</h4></div>
+            <div class="card-body">
+                <h5 class="card-title">Издательство:</h5>
+                <p class="card-text">{{ publisher.name }}</p>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Город издания:</h5>
+                <p class="card-text">{{ publisher.city }}</p>
+            </div>
+    </div>
+    
+        <a href="{% url 'publishers' %}" class="btn btn-outline-secondary"> Назад </a>
+{%endblock body%}

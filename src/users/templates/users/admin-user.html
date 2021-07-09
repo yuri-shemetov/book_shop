@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title%} Подробнее...  {%endblock title%}
+{% block body%}
+
+<center><br>
+    <div class="card" style="width: 100%">
+		<main class="form-signin">
+{% for userdetail in object_list%}
+        <h2 >Карточка менеджера</h2><br>
+            <div class="table table-striped" style="width: 100%">
+                <table class="table table-striped border-dark">
+                    <tbody>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Логин: </center></h5></td>
+                                <td><h5><center><b>{{userdetail.username}}</b></center></h5></td>
+                            </div>
+                            </tr>
+                        {% if user.groups.all.0.name == "Managers" %}
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>e-mail:  </center></h5></td>
+                                <td><h5><center><b>{{email}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        {% endif%}
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Имя:  </center></h5></td>
+                                <td><h5><center><b>{{first_name}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Фамилия: </center></h5></td>
+                                <td><h5><center><b>{{last_name}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Телефон: </center></h5></td>
+                                <td><h5><center><b>{{userdetail.phone_number}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                    {% if user.groups.all.0.name == "Managers" %}
+                    <tr>
+                            <th colspan="4">
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <h4> <center>Домашний адрес: </center></h4>
+                            </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Страна: </center></h5></td>
+                                <td><h5><center><b>{{userdetail.country}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Город: </center></h5></td>
+                                <td><h5><center><b>{{userdetail.city}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Индекс: </center></h5></td>
+                                <td><h5><center><b>{{userdetail.index}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Адрес 1: </center></h5></td>
+                                <td><h5><center><b>{{userdetail.address_1}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Адрес 2: </center></h5></td>
+                                <td><h5><center><b>{{userdetail.address_2}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                                                <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Доп. информация: </center></h5></td>
+                                <td><h5><center><b>{{userdetail.info}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        {%endif%}
+                    </tbody>
+
+                </table>
+            </div>
+                    <a href="{% url 'users:users-all'%}" class = 'btn btn-outline-dark'> Назад </a>
+        {%endfor%}
+        </main>
+    </div>
+
+</center>
+
+
+{% endblock body%}

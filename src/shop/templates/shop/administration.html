@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title%} :: Directories :: {%endblock title%}
+{% block body%}
+{%load new_order %}
+
+<table class="table table-hover">
+
+        <thead>
+        <tr>
+            <th scope="col"><center>№ п/п</center></th>
+            <th scope="col"><center>Название раздела</center></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <th scope="row"><center>1</center></th>
+
+          <td><div class="d-grid gap-2 col-6 mx-auto">
+              <a href="{% url 'directories' %}" class = 'btn  btn-outline-secondary' >Справочники</a>
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row"><center>2</center></th>
+          <td><div class="d-grid gap-2 col-6 mx-auto">
+              <a href="{% url 'books-managers' %}" class = 'btn btn-outline-secondary'> Книги </a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+            <th scope="row"><center>3</center></th>
+          <td><div class="d-grid gap-2 col-6 mx-auto">
+              <a href="{% url 'promo' %}" class = 'btn btn-outline-secondary'> Акции </a>
+          </div>
+          </td>
+        </tr>
+        <tr>
+            <th scope="row"><center>4</center></th>
+          <td ><div class="d-grid gap-2 col-6 mx-auto">
+              <a href="{% url 'orders' %}" class = 'btn btn-outline-secondary' > Заказы 
+                <span class="badge rounded-pill bg-danger" >{% new_order %}</span></a>
+          </div>
+          </td>
+        </tr>
+        <tr>
+            <th scope="row"><center>5</center></th>
+          <td ><div class="d-grid gap-2 col-6 mx-auto">
+              <a href="{% url 'users-list' %}" class = 'btn btn-outline-secondary' > Карточки пользователей </a>
+          </div>
+          </td>
+        </tr>
+      </tbody>
+
+</table>
+{%endblock body%}

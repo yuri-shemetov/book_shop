@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title%} :: Author delete :: {%endblock title%}
+{% block body%}
+    <h1>Удалить Автора(-ов)?</h1>
+    <ul>
+        <form action="" method="post">
+            {% csrf_token %}
+            <br>
+                <a href="{% url 'authors' %}" class="btn btn-outline-secondary">Отменить</a>
+                <input type="submit" class="btn btn-danger" value="Удалить">
+        </form>
+    </ul>
+{%endblock body%}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load comment_tags %}
+{% block title%} :: Cart :: {%endblock title%}
+{% block body%}
+<h1><center> Ваш заказ </center></h1>
+<h4> Список выбранных вами книг:</h4>
+
+
+  <table class="table table-bordered border-grey">
+      <thead>
+        <tr>
+          <th scope="col">№ п/п</th>
+          <th scope="col">Книга</th>
+          <th scope="col">Количество</th>
+          <th scope="col">Цена за шт.</th>
+          <th scope="col">Общая цена</th>
+        </tr>
+      </thead>
+      {%for book in object.books.all%}
+      <tbody>
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>{{book.book}}</td>
+          <td>{{book.quantity}}</td>
+          <td>{{book.unit_price}}</td>
+          <td>{{book.total_price}}</td>
+        </tr>
+      </tbody>
+      {%endfor%}
+      <tr>
+        <td colspan="4"><b>Итого:</b></td>
+        <td colspan="2"><b>{{object.total_price}} BYN</b></td>
+      </tr>
+  </table>
+  
+    <a href="{% url 'users:user' %}" type="button" class="btn btn-sm btn-outline-secondary">Назад</a>
+{%if status.name == "Отменен" %}
+<br><br>
+    <h5>Заказ отменен!</h5>
+{%elif status.name == "Выполнен" %}
+    <br><br>
+        <h5>Ваш заказ выполнен!</h5>
+{%else%}
+    <a href="{% url 'users:status-cancel' %}?filter={{cart_pk}}" type="button" class="btn btn-sm btn-danger">Отменить заказ</a>
+{%endif%}
+<br>
+
+{% show_comments %}
+
+{% endblock body%}

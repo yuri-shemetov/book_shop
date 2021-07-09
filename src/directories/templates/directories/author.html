@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title%} :: Author :: {%endblock title%}
+{% block body%}
+    <div class="card text-white bg-secondary mb-3" style="max-width: 150rem;">
+        <div class="card-header"> 
+            <h4 class="card-title">Описание раздела автора(ов): {{ author.name }}</h4></div>
+            <div class="card-body">
+            <h5 class="card-title">Количество авторов:</h5>
+            <p class="card-text">{{ author.number }}</p>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Автор(ы):</h5>
+                <p class="card-text">{{ author.name }}</p>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Дата внесения в БД:</h5>
+                <p class="card-text">{{ author.created|date:"D d M Y" }}</p>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Дата последнего редактирования:</h5>
+                <p class="card-text">{{ author.updated }}</p>
+            </div>
+    </div>
+    
+        <a href="{% url 'authors' %}" class="btn btn-outline-secondary"> Назад </a>
+
+{%endblock body%}

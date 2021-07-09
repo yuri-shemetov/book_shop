@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title%} :: Promo :: {%endblock title%}
+{% block body%}
+
+<h2>Подробнее...</h2>
+
+<div class="card" style="width: 80%;">
+    <img src="{{ promo.picture.url }}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Акция: {{promo.name}}!</h5>
+      <p class="card-text">{{promo.description}}</p>
+    </div>
+  </div>
+<br>
+
+<a href="{% url 'home' %}" class = 'btn btn-outline-dark'> На главную </a>
+{% if user.groups.all.0.name == "Managers" or user.is_superuser%}
+<a href="{% url 'promo'%}" class = 'btn btn-outline-dark'> Все акции </a>
+
+{%endif%}
+{%endblock body%}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title%} Изменить подробности {%endblock title%}
+{% block body%}
+<center>
+
+<div class="card border-secondary mb-3" style="width: 100%">
+  <div class="card-header"><h5 class="card-title"><b><center>Изменить подробности {{object}} </center></b></h5></div>
+  <div class="card-body text-secondary">
+    <p class="card-text">
+       <form method="post" action="" class="form">
+            {% csrf_token %}
+            {{form.as_p}}
+            
+            <br>
+            <a href="{% url 'users-detail-admin' back_id %}?filter={{back_id}}" class='btn btn-outline-dark'> Отмена </a>
+            <input type="submit" class='btn btn-outline-dark' value="Применить">
+        </form>
+  </div>
+</div>
+</center>
+
+
+
+{% endblock body%}

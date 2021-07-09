@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title%} :: Bookstore :: {%endblock title%}
+{% block body%}
+
+<h2>Список всех книг - {% if user.groups.all.0.name %}для группы: {{user.groups.all.0.name}} {%endif%} 
+    {% if user.is_superuser %}для Администратора сайта {%endif%}
+</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col"> № п/п </th>
+        <th scope="col">Книга</th>
+        <th scope="col">Редактирование</th>
+        <th scope="col">Удаление</th>
+    </tr>
+    </thead>
+    {% for book in object_list%}
+    <tbody>
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>
+            <a href="{% url 'book' book.pk %}" ><h4>  {{book.name}} {% for author in book.author.all%}
+              / {{author}}
+              {%endfor%}
+          </h4></a></td>
+          <td><a href="{% url 'book-update' book.pk %}" class="btn btn-warning"> Редактировать </a></td>
+          <td><a href="{% url 'book-delete' book.pk %}" class="btn btn-danger"> Удалить </a></td>
+        </tr>
+    </tbody>
+    {%endfor%}
+</table>    
+
+    <br>
+        <a href="{% url 'book-create' %}" class="btn btn-success"> Добавить книгу </a>
+        <br><br>
+
+{%endblock%}

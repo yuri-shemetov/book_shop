@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title%} Подробнее...  {%endblock title%}
+{% block body%}
+
+<center><br>
+    <div class="card" style="width: 100%">
+		<main class="form-signin">
+        {% for us in object_list%}
+        <h2 >Карточка пользователя</h2><br>
+            <div class="table table-striped" style="width: 100%">
+                <table class="table table-striped border-dark">
+                    <tbody>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Логин: </center></h5></td>
+                                <td><h5><center><b>{{us.username}}</b></center></h5></td>
+                            </div>
+                            </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Телефон:  </center></h5></td>
+                                <td><h5><center><b>{{us.phone_number}}</b></center></h5></td>
+                            </div>
+                        </tr>
+
+                        <tr>
+                            <th colspan="4">
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <h4> <center>Домашний адрес: </center></h4>
+                            </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Страна: </center></h5></td>
+                                <td><h5><center><b>{{us.country}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Город: </center></h5></td>
+                                <td><h5><center><b>{{us.city}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Индекс: </center></h5></td>
+                                <td><h5><center><b>{{us.index}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Адрес 1: </center></h5></td>
+                                <td><h5><center><b>{{us.address_1}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Адрес 2: </center></h5></td>
+                                <td><h5><center><b>{{us.address_2}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <td><h5> <center>Дополнительная информация: </center></h5></td>
+                                <td><h5><center><b>{{us.info}}</b></center></h5></td>
+                            </div>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+                    <a href="{% url 'users-list' %}" class = 'btn btn-outline-dark'> Назад </a>
+                    <a href="{% url 'users-update-admin' us.pk %}?filter={{us.pk}}" class = 'btn btn-outline-dark'> Изменить </a> 
+
+        {%endfor%}
+        </main>
+    </div>
+
+</center>
+
+
+{% endblock body%}

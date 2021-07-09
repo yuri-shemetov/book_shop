@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title%} :: Users :: {%endblock title%}
+{% block body%}
+
+
+   <br>
+    <div class="table table-bordered">
+      <table class="table table-bordered">
+          <thead>
+        <tr>
+
+            <th colspan="4"><center><h5><b> Карточки покупателей </b></h5></center></th>
+        </tr>
+         </thead>
+
+          {% for user_info in object_list %}
+            {% if user_info.groups.all.0.name == "Customers"%}
+             {% if user_info != user %}
+              <tbody>
+                <tr>
+
+                    <th colspan="4">
+                        <div class="d-grid gap-2 col-4 mx-auto">
+                        <a href="{% url 'users:other-user' %}?filter={{user_info.pk}}" class = 'btn btn-outline-secondary'> {{user_info}}  </a>
+                        </div>
+                    </th>
+                </tr>
+                </tbody>
+            {% endif %}{% endif %}
+          {% endfor %}
+
+        </table>
+    </div>
+
+  <br>
+    <div class="table table-bordered">
+      <table class="table table-bordered">
+          <thead>
+        <tr>
+
+            <th colspan="4"><center><h5><b> Карточки менеджеров </b></h5></center></th>
+        </tr>
+         </thead>
+
+          {% for user_info in object_list %}
+            {% if user_info.groups.all.0.name == "Managers"%}
+             {% if user_info != user %}
+              <tbody>
+                <tr>
+
+                    <th colspan="4">
+                        <div class="d-grid gap-2 col-4 mx-auto">
+                        <a href="{% url 'users:admin-user' %}?filter={{user_info.pk}}" class = 'btn btn-outline-secondary'> {{user_info}}  </a>
+                        </div>
+                    </th>
+                </tr>
+                </tbody>
+            {% endif %}{% endif %}
+          {% endfor %}
+
+        </table>
+    </div>
+
+
+    <a href="{% url 'users:user' %}" class = 'btn btn-outline-dark'> Назад </a>
+
+
+{%endblock body%}

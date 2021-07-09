@@ -1,0 +1,50 @@
+<br><br>
+<div class="row" style="max-width: 800px;">
+
+
+    <form action="{% url 'comments:create-comment' %}" method="POST">
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Добавить отзыв</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+
+      <div class="modal-body">
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name = "comment_text"></textarea>
+        <input type="hidden" name="next_step" value="{{ next_step }} ">
+        <input type="hidden" name="content_type_id" value="{{ content_type_id }} ">
+        <input type="hidden" name="object_id" value="{{ object_id }} ">
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Отменить</button>
+        {% csrf_token %}
+        <button type="submit" class="btn btn-sm btn-outline-dark">Добавить</button>
+      </div>
+    </div>
+  </div>
+</div>
+    </form>
+
+<div class="bd-example">
+  <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+    Добавить отзыв
+  </button>
+
+</div>
+
+
+
+        <ul>
+            <br>
+            {%for comment in comments%}
+
+            <li><b>{{comment.author}}:</b>  <i><small>{{comment.created}}</small></i><br>
+            {{comment.comment_text}}
+            </li>
+            {% endfor%}
+        </ul>
+</div>

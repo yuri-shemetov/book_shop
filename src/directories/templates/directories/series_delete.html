@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title%} :: Seria delete :: {%endblock title%}
+{% block body%}
+    <h1>Удалить выбранную Вами Серию ?</h1>
+    <ul>
+        <form action="" method="post">
+            {% csrf_token %}
+            <br>
+            <a href="{% url 'series' %}" class="btn btn-outline-secondary">Отменить</a>
+            <input type="submit" class="btn btn-danger" value="Удалить">
+    </form>
+        </form>
+    </ul>
+{%endblock body%}
