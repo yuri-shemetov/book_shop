@@ -1,5 +1,12 @@
-from django.urls import path
-from . import views
+from django.urls import path, include
+from . import views, apiviews
+from rest_framework import routers
+
+router = routers.SimpleRouter()
+
+
+router.register('books-rest', apiviews.BookAPIViewSet)
+
 
 urlpatterns = [
     # Главная страница
@@ -42,4 +49,8 @@ urlpatterns = [
     path('users-detail-admin/<int:pk>', views.UserDetailView.as_view(), name='users-detail-admin'),
     # Редактировать данные пользователя
     path('users-update-admin/<int:pk>', views.UserUpdateView.as_view(), name='users-update-admin'),
+
+    # REST Framework
+    path('book-json/<int:pk>/', apiviews.BookAPIView.as_view(), name='book-json'),
+    path('api/', include(router.urls)),
     ]

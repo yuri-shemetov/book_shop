@@ -2,7 +2,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from . import models, forms
 from django.urls import reverse_lazy
 from django.shortcuts import render
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin, UserPassesTestMixin
 from orders import models as models_orders
 from carts import models as models_carts
 from users import models as models_users
@@ -32,10 +32,12 @@ def home(request):
     }
     return render(request, 'shop/home.html',  context=context)
 
-class Administration(LoginRequiredMixin, TemplateView):
+class Administration(UserPassesTestMixin, TemplateView):
     template_name = 'shop/administration.html'
     login_url = '/login/'
     redirect_field_name = 'next'
+    def test_func(self):
+        return self.request.user.is_staff
 
 class Book(DetailView):
     model = models.Book
@@ -81,11 +83,13 @@ class Promo(DetailView):
     model = models.Promo
     template_name = 'shop/promo-detail.html'
 
-class BooksManagers(LoginRequiredMixin, ListView):
+class BooksManagers(UserPassesTestMixin, ListView):
     model = models.Book
     template_name = 'shop/books-managers.html'
     login_url = '/login/'
     redirect_field_name = 'next'
+    def test_func(self):
+        return self.request.user.is_staff
 
 class Book_create(PermissionRequiredMixin, CreateView):
     model = models.Book
@@ -135,19 +139,24 @@ class Promo_delete(PermissionRequiredMixin, DeleteView):
     login_url = '/login/'
     permission_required = 'shop.delete_promo'
 
-class OrderListView(LoginRequiredMixin, ListView):
+class OrderListView(UserPassesTestMixin, ListView):
     model = models_orders.Order
     template_name = 'shop/orders.html'
     paginate_by = 10
     ordering = '-created'
     login_url = '/login/'
     redirect_field_name = 'next'
+    def test_func(self):
+        return self.request.user.is_staff
 
-class OrderDetailView(LoginRequiredMixin, DetailView):
+class OrderDetailView(UserPassesTestMixin, DetailView):
     model = models_carts.BookInCart
     template_name = 'shop/order-detail.html'
     login_url = '/login/'
     redirect_field_name = 'next'
+
+    def test_func(self):
+        return self.request.user.is_staff
 
     def get_object(self, queryset=None):
         # get cart
@@ -181,25 +190,29 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
         context['login_number'] = pk
         return context
 
-class UserListView(LoginRequiredMixin, ListView):
+class UserListView(UserPassesTestMixin, ListView):
     model = models_users.UserDetail
     template_name = 'shop/users-list.html'
     paginate_by = 10
     login_url = '/login/'
     redirect_field_name = 'next'
+    def test_func(self):
+        return self.request.user.is_staff
 
-class UserDetailView(LoginRequiredMixin, ListView):
+class UserDetailView(UserPassesTestMixin, ListView):
     model = models_users.UserDetail
     template_name = 'shop/user-detail-admin.html'
     login_url = '/login/'
     redirect_field_name = 'next'
+    def test_func(self):
+        return self.request.user.is_staff
 
     def get_queryset(self):
         qs = super(UserDetailView, self).get_queryset()
         user_id = self.request.GET.get('filter')
         return qs.filter(pk=int(user_id))
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(UserPassesTestMixin, UpdateView):
     model = models_users.UserDetail
     form_class = forms.UserAdminForm
     template_name = 'shop/user-update-admin.html'
@@ -210,9 +223,14 @@ class UserUpdateView(UpdateView):
         info_id = self.request.GET.get('filter')
         context['back_id'] = info_id
         return context
+        
+    def test_func(self):
+        return self.request.user.is_staff
 
-class StatusUpdate(UpdateView):
+class StatusUpdate(UserPassesTestMixin, UpdateView):
     model = models_orders.Order
     template_name = 'shop/status.html'
     form_class = forms.StatusForm
     success_url = reverse_lazy('orders')
+    def test_func(self):
+        return self.request.user.is_staff
